@@ -1,4 +1,4 @@
-package com.dubber.zookeeper.master.vote;
+package com.dubber.zookeeper.zkclient.vote;
 
 import org.I0Itec.zkclient.IZkDataListener;
 import org.I0Itec.zkclient.ZkClient;

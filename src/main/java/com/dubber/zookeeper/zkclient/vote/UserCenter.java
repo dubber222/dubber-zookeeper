@@ -1,4 +1,4 @@
-package com.dubber.zookeeper.master.vote;
+package com.dubber.zookeeper.zkclient.vote;
 
 import java.io.Serializable;
 

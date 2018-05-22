@@ -1,4 +1,4 @@
-package com.dubber.zookeeper.distributedlock;
+package com.dubber.zookeeper.javaapi.distributedlock;
 
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
