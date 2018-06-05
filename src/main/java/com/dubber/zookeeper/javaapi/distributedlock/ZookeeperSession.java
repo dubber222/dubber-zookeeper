@@ -16,13 +16,14 @@ import java.util.concurrent.CountDownLatch;
 public class ZookeeperSession implements Watcher{
 
     private final static String CONNECT_STRING = "192.168.0.110:2181,192.168.0.104:2181,192.168.0.106:2181";
+    private final static String CONNECT_STRING_2 = "192.168.49.137:2181,192.168.49.138:2181,192.168.49.139:2181";
 
     private static int sessionTimeout = 5000;
     private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
 
     public static ZooKeeper getZookeeperCli() throws IOException {
 
-        ZooKeeper zookeeper = new ZooKeeper(CONNECT_STRING, 5000, new ZookeeperSession());
+        ZooKeeper zookeeper = new ZooKeeper(CONNECT_STRING_2, 5000, new ZookeeperSession());
         System.out.println(zookeeper.getState());
         try {
             connectedSemaphore.await();

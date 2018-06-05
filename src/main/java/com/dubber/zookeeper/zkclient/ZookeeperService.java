@@ -1,8 +1,10 @@
 package com.dubber.zookeeper.zkclient;
 
+import com.dubber.zookeeper.ZkServers;
 import org.I0Itec.zkclient.IZkDataListener;
 import org.I0Itec.zkclient.IZkStateListener;
 import org.I0Itec.zkclient.ZkClient;
+import org.I0Itec.zkclient.ZkServer;
 import org.apache.log4j.Logger;
 import org.apache.zookeeper.Watcher;
 
@@ -37,13 +39,13 @@ public class ZookeeperService {
 
 
     public void init(){
-        serverIpAddress = "192.168.0.110:2181,192.168.0.104:2181,192.168.0.106:2181";
+        serverIpAddress = ZkServers.CONNECT_STRING;
         connectTimeout = 5000;
     }
 
     public void start() throws InterruptedException {
         ZkClient zkClient = new ZkClient(serverIpAddress,connectTimeout);
-        //System.out.println("Connection  success!!");
+        System.out.println("Connection  success!!");
         // 递归创建父节点的操作
         //zkClient.createPersistent("/node_012/zz",true);
         //zkClient.createPersistent("/zkClient1","1");
@@ -52,8 +54,11 @@ public class ZookeeperService {
         //zkClient.deleteRecursive("node_012");
 
 
+
+        zkClient.createPersistent("/node","1");
+
         // 订阅数据变化 监听
-        /*zkClient.subscribeDataChanges("/node", new IZkDataListener() {
+        zkClient.subscribeDataChanges("/node", new IZkDataListener() {
             @Override
             public void handleDataChange(String dataPath, Object data) throws Exception {
                 System.out.println("dataPath:" + dataPath + " ,  data:" + data);
@@ -65,7 +70,6 @@ public class ZookeeperService {
         });
         zkClient.writeData("/node","12");
         TimeUnit.SECONDS.sleep(1);
-        */
     }
 
 }
