@@ -30,7 +30,7 @@ public class ZookeeperCli {
     }
 
     public void start(String nameSpace) {
-        if(init){
+        if(!init){
             if(StringUtils.isBlank(nameSpace)){
                 nameSpace = "/";
             }

@@ -1,13 +1,13 @@
 package generateseq;
 
-import com.dubber.zookeeper.ZkServers;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.CuratorFrameworkFactory;
-import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.I0Itec.zkclient.IZkChildListener;
+import org.I0Itec.zkclient.ZkClient;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.*;
 
 /**
@@ -20,7 +20,7 @@ public class GenerateSeq {
      * SEQ_ZNODE 提前创建好存储 Seq 的 "/eq" 结点
      * LOCK_ZNODE  //提前创建好锁对象的结点"/lock"
      */
-    private static final String NAMESPACE_ZNODE = "/dubber";
+    private static final String NAMESPACE_ZNODE = "dubber";
     private static final String SEQ_ZNODE = "/seq";
     private static final String LOCK_ZNODE = "/lock";
     private ExecutorService executorService = null;
@@ -30,7 +30,7 @@ public class GenerateSeq {
     public void generateSeq() {
 
         for (int i = 0; i < maximumpollSize; i++) {
-
+            executorService.submit(new task1(i + ""));
         }
 
         try {
@@ -45,8 +45,6 @@ public class GenerateSeq {
             executorService.shutdownNow();
             e.printStackTrace();
         }
-
-
     }
 
     /**
@@ -71,7 +69,7 @@ public class GenerateSeq {
      * task1
      * 通过znode数据版本实现分布式seq生成
      */
-    class task1 implements Runnable{
+    class task1 implements Runnable {
         private String taskName;
 
         public task1(String taskName) {
@@ -80,9 +78,11 @@ public class GenerateSeq {
 
         @Override
         public void run() {
-            Stat stat = zkCli.setData(NAMESPACE_ZNODE + SEQ_ZNODE,"1");
+            Stat stat = zkCli.setData(SEQ_ZNODE, "1");
             int versionAsSeq = stat.getVersion();
             System.out.println(taskName + " obtain seq=" + versionAsSeq);
+
         }
     }
+
 }

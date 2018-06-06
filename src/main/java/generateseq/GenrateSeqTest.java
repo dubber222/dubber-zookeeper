@@ -7,6 +7,8 @@ package generateseq;
  */
 public class GenrateSeqTest {
     public static void main(String[] args) {
-
+        GenerateSeq generateSeq = new GenerateSeq();
+        generateSeq.init();
+        generateSeq.generateSeq();
     }
 }
