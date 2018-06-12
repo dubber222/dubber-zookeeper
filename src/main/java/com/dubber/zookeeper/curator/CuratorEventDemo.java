@@ -24,7 +24,6 @@ public class CuratorEventDemo {
         /**
          * 节点cache
          */
-        /*
         final NodeCache nodeCache = new NodeCache(curatorFramework, "/curator",false);
         nodeCache.start();
 
@@ -40,7 +39,6 @@ public class CuratorEventDemo {
                 System.out.println("节点数据变化，变化后的结果：" + new String(nodeCache.getCurrentData().getData()));
             }
         });
-        */
 
         PathChildrenCache pathChildrenCache = new PathChildrenCache(curatorFramework, "/curator", true);
         pathChildrenCache.start(PathChildrenCache.StartMode.POST_INITIALIZED_EVENT);

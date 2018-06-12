@@ -6,5 +6,7 @@ package com.dubber.zookeeper;
  * @author dubber
  */
 public class ZkServers{
-    public final static String CONNECT_STRING = "192.168.49.137:2181,192.168.49.138:2181,192.168.49.139:2181";
+    public final static String CONNECT_STRING
+            = "192.168.116.12:2181,192.168.116.13:2181," +
+            "192.168.116.14:2181,192.168.116.15:2181";
 }

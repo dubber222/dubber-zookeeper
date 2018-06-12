@@ -20,13 +20,14 @@ import java.util.concurrent.TimeUnit;
 public class LeaderVote {
 
     private final static String CONNECT_STRING = "192.168.0.110:2181,192.168.0.104:2181,192.168.0.106:2181";
-    private final static String CONNECT_STRING2 = "192.168.49.134:2181,192.168.49.132:2181,192.168.49.133:2181";
+    private final static String CONNECT_STRING2 = "192.168.49.141:2181";
 
     private static String master_path = "/master_curator_path";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         CuratorFramework curatorFramework = CuratorFrameworkFactory.builder().connectString(CONNECT_STRING2)
                 .retryPolicy(new ExponentialBackoffRetry(1000,3)).build();
+        curatorFramework.start();
 
         LeaderSelector leaderSelector = new LeaderSelector(curatorFramework, master_path, new LeaderSelectorListenerAdapter() {
             @Override
@@ -43,6 +44,7 @@ public class LeaderVote {
 
         leaderSelector.autoRequeue();
         leaderSelector.start();//开始选举
+        TimeUnit.MILLISECONDS.sleep(Integer.MAX_VALUE);
     }
 
 }

@@ -2,10 +2,16 @@ package com.dubber.zookeeper.curator;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.api.BackgroundCallback;
+import org.apache.curator.framework.api.CuratorEvent;
 import org.apache.curator.framework.api.transaction.CuratorTransactionResult;
 import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.apache.zookeeper.CreateMode;
 
 import java.util.Collection;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by dubber on 2018/5/19.
@@ -97,7 +103,7 @@ public class CuratorOperatorDemo {
         /**
          * 异步操作
          */
-        /*final CountDownLatch countDownLatch = new CountDownLatch(1);
+       /* final CountDownLatch countDownLatch = new CountDownLatch(1);
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         try {
             String result = curatorFramework.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT)

@@ -30,7 +30,7 @@ public class ZookeeperTest implements Watcher {
         }
         //create("/data3","123");
 
-//        delete("/data3");
+        // delete("/data3");
         createChildren("/data2/data21", "333");
         listNode();
 
